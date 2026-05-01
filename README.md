@@ -10,7 +10,7 @@ The system identifies customers likely to leave a service and provides risk leve
 ## 🌐 Live Demo
 
 👉 Streamlit App: https://machine-learning--customer-churn-prediction-model-lv9sccsv34cc.streamlit.app/  
-👉 GitHub Repository: https://github.com/your-username/your-repo-name  
+👉 GitHub Repository: https://github.com/Aarthikole18/Machine-Learning--Customer-Churn-Prediction-Model.git  
 
 ---
 
