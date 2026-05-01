@@ -1,163 +1,114 @@
 # 📊 Customer Churn Prediction System
 
 ## 🚀 Overview
-This is an end-to-end Machine Learning project that predicts whether a customer will churn and provides explainable insights for business decision-making.
+This is an end-to-end Machine Learning project that predicts customer churn and helps businesses take proactive retention actions.
 
-It simulates a real-world industry ML system used in telecom, SaaS, and subscription-based businesses.
+The system identifies customers likely to leave a service and provides risk level + reasons behind churn.
 
-The project includes:
-- Machine Learning model (XGBoost)
-- REST API using FastAPI
-- Explainable AI (SHAP)
-- Real-time prediction system
-- Business insights for retention strategies
+---
+
+## 🌐 Live Demo
+
+👉 Streamlit App: https://machine-learning--customer-churn-prediction-model-lv9sccsv34cc.streamlit.app/  
+👉 GitHub Repository: https://github.com/your-username/your-repo-name  
 
 ---
 
 ## 🎯 Problem Statement
-Companies lose revenue when customers stop using their services (churn).
-
-The goal of this system is to:
-- Predict customer churn in advance
-- Identify high-risk customers
-- Understand reasons behind churn
-- Enable proactive retention strategies
+Businesses lose revenue when customers stop using their services (churn).  
+This project helps predict churn in advance so companies can take preventive action.
 
 ---
 
 ## 🧠 Solution Approach
-
-Data → Cleaning → Feature Engineering → Model Training → Evaluation → API → Predictions → Insights
+Data → Preprocessing → Feature Engineering → Model Training → Evaluation → Deployment → UI
 
 ---
 
 ## ⚙️ Tech Stack
-- Python 🐍
-- Pandas, NumPy
-- Scikit-learn
-- XGBoost 🚀
-- FastAPI ⚡
-- SHAP (Explainable AI)
-- HTML / JavaScript (Dashboard)
+Python | Pandas | NumPy | Scikit-learn | XGBoost | Streamlit | Joblib
 
 ---
 
 ## 📂 Project Structure
 Customer-Churn-Prediction/
+│
+├── app_streamlit.py
+├── models/
+│     └── churn_model.pkl
 ├── data/
 ├── src/
-├── serving/
-├── models/
-├── dashboard/
 ├── requirements.txt
-├── README.md
+└── README.md
 
 ---
 
-## 🧪 Model Pipeline
-1. Load dataset  
-2. Clean and preprocess data  
-3. Encode categorical variables  
-4. Feature engineering  
-5. Train XGBoost model  
-6. Evaluate performance  
-7. Save trained model  
-8. Deploy via FastAPI  
+## 🧪 Features
+✔ Predicts churn probability  
+✔ Classifies risk (Low / Medium / High)  
+✔ Shows reasons behind churn  
+✔ Interactive web UI  
+✔ Real-time predictions  
 
 ---
 
-## 📡 API Endpoint
-
-### POST /predict
-
-### Input Example
-{
-  "tenure": 5,
-  "monthly_charges": 1800,
-  "support_tickets": 7,
-  "usage": 10
-}
-
-### Output Example
-{
-  "churn_probability": 0.82,
-  "risk": "HIGH",
-  "reasons": [
-    "Low usage",
-    "High support issues",
-    "High pricing sensitivity"
-  ]
-}
+## 📊 Model Performance
+- Strong performance on tabular dataset  
+- Handles class imbalance using XGBoost  
+- Optimized for real-world business data  
 
 ---
 
-## 📊 Business Impact
-- Reduce customer churn rate
-- Improve retention strategies
-- Identify high-risk customers early
-- Optimize marketing and discounts
-- Increase revenue efficiency
+## 💡 Business Impact
+- Reduces customer churn rate  
+- Improves retention strategies  
+- Increases customer lifetime value  
+- Helps data-driven decision making  
 
 ---
 
-## 🧠 Explainable AI (SHAP)
-SHAP is used to explain predictions:
-- Global feature importance
-- Individual customer explanation
-- Business trust and interpretability
-
----
-
-## 📈 Model Performance
-- ROC-AUC: ~0.85–0.92
-- Strong performance on imbalanced data
-- Feature importance validated with SHAP
-
----
-
-## 🚀 How to Run
+## 🚀 How to Run Locally
 
 pip install -r requirements.txt  
-python src/train.py  
-uvicorn serving.app:app --reload  
+streamlit run app_streamlit.py  
 
-Open:
-http://127.0.0.1:8000/docs
+---
+
+## 📌 Example Input
+Tenure: 5  
+Monthly Charges: 1800  
+Support Tickets: 7  
+Usage: 10  
+
+---
+
+## 📤 Output
+Churn Probability: 0.82  
+Risk Level: HIGH  
+Reasons:
+- Low usage  
+- High support issues  
+- High pricing sensitivity  
 
 ---
 
 ## 🌍 Real-World Applications
-- Telecom companies
-- SaaS platforms
-- Banking & fintech
-- OTT platforms
-- Subscription-based businesses
-
----
-
-## 💡 Key Learnings
-- End-to-end ML pipeline
-- Feature engineering
-- Model evaluation
-- FastAPI deployment
-- Explainable AI (SHAP)
-- Real-world business problem solving
-
----
-
-## 🚀 Future Improvements
-- Cloud deployment (AWS / Render)
-- React dashboard integration
-- Real-time streaming data
-- CI/CD pipeline
-- Model monitoring system
+- Telecom industry  
+- SaaS platforms  
+- OTT services  
+- Fintech apps  
 
 ---
 
 ## 👨‍💻 Author
-Built as a Machine Learning portfolio project for placements and internships.
+Built as a Machine Learning portfolio project for internships and placements.
 
 ---
 
-## ⭐ If you like this project
-Give this repo a ⭐ and feel free to contribute!
+## 🙏 Acknowledgement
+Special thanks to EDC IIT Delhi and Umesh Yadav Sir for guidance and learning support.
+
+---
+
+## ⭐ Support
+If you like this project, give it a ⭐ on GitHub.
