@@ -1,49 +1,34 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
 import numpy as np
 import os
 
+app = FastAPI(title="Customer Churn API")
+
 # -----------------------------
-# Load model safely (IMPORTANT for deployment)
+# FIX: absolute-safe model path
 # -----------------------------
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "churn_model.pkl")
 
 model = joblib.load(MODEL_PATH)
 
 # -----------------------------
-# FastAPI app
+# Root route (Render health check)
 # -----------------------------
-app = FastAPI(title="Customer Churn Prediction API")
-
-# -----------------------------
-# CORS (allow frontend access)
-# -----------------------------
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.get("/")
+def home():
+    return {"message": "Churn Prediction API is live 🚀"}
 
 # -----------------------------
 # Input schema
 # -----------------------------
 class Customer(BaseModel):
-    tenure: int
-    monthly_charges: int
-    support_tickets: int
-    usage: int
-
-# -----------------------------
-# Home route
-# -----------------------------
-@app.get("/")
-def home():
-    return {"message": "Customer Churn API is running 🚀"}
+    tenure: float
+    monthly_charges: float
+    support_tickets: float
+    usage: float
 
 # -----------------------------
 # Prediction endpoint
@@ -51,26 +36,21 @@ def home():
 @app.post("/predict")
 def predict(customer: Customer):
 
-    # convert input → model format
-    data = np.array([[
+    input_data = np.array([[
         customer.tenure,
         customer.monthly_charges,
         customer.support_tickets,
         customer.usage
     ]])
 
-    # prediction probability
-    prob = model.predict_proba(data)[0][1]
+    prob = model.predict_proba(input_data)[0][1]
 
-    # risk classification
-    if prob > 0.6:
-        risk = "HIGH"
-    elif prob > 0.3:
-        risk = "MEDIUM"
-    else:
-        risk = "LOW"
+    risk = (
+        "HIGH" if prob >= 0.7 else
+        "MEDIUM" if prob >= 0.4 else
+        "LOW"
+    )
 
-    # simple explainability (business logic)
     reasons = []
 
     if customer.usage < 20:
@@ -79,8 +59,8 @@ def predict(customer: Customer):
         reasons.append("High support issues")
     if customer.monthly_charges > 1500:
         reasons.append("High pricing sensitivity")
-    if customer.tenure < 10:
-        reasons.append("New customer risk")
+    if customer.tenure < 6:
+        reasons.append("New customer")
 
     return {
         "churn_probability": float(prob),
