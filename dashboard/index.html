@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Churn Live Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #0f172a;
+    color: white;
+}
+
+.header {
+    padding: 20px;
+    background: linear-gradient(90deg,#2563eb,#7c3aed);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: #111827;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid #1f2937;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+📊 Customer Churn Intelligence System (LIVE)
+</div>
+
+<div class="container">
+
+<button onclick="loadData()">🔄 Load Predictions</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+async function loadData() {
+
+    const customers = [
+        {tenure: 5, monthly_charges: 1800, support_tickets: 7, usage: 10},
+        {tenure: 20, monthly_charges: 800, support_tickets: 2, usage: 60},
+        {tenure: 2, monthly_charges: 2000, support_tickets: 9, usage: 5}
+    ];
+
+    let html = "";
+
+    for (let i = 0; i < customers.length; i++) {
+
+        let c = customers[i];
+
+        let res = await fetch("http://127.0.0.1:8000/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(c)
+        });
+
+        let data = await res.json();
+
+        html += `
+        <div class="card">
+            <h3>Customer ${i+1}</h3>
+            <p>Churn Probability: <b>${data.churn_probability.toFixed(2)}</b></p>
+            <p>Risk: <b>${data.risk}</b></p>
+            <p>Reasons: ${data.reasons.join(", ")}</p>
+        </div>
+        `;
+    }
+
+    document.getElementById("output").innerHTML = html;
+}
+</script>
+
+</body>
+</html>

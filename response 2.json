@@ -1,0 +1,10 @@
+{
+  "churn_probability": 0.9997342228889465,
+  "risk": "HIGH",
+  "reasons": [
+    "Low usage",
+    "High support issues",
+    "High pricing sensitivity",
+    "New customer risk"
+  ]
+}
